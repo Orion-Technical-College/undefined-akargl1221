@@ -1,12 +1,8 @@
--- Demo accounts for a simple transfer scenario (extend for your write-up).
+-- Setup SQL script for the database
+DELETE FROM ORDER_LINE WHERE OrderLineID = 1;
 
-CREATE TABLE IF NOT EXISTS accounts (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    balance_cents INTEGER NOT NULL CHECK (balance_cents >= 0)
-);
-
-TRUNCATE accounts RESTART IDENTITY;
-INSERT INTO accounts (name, balance_cents) VALUES
-    ('Checking', 10000),
-    ('Savings', 5000);
+-- Insert a new order line with conflict handling
+INSERT INTO ORDER_LINE (OrderLineID, OrderID, ProductID, Quantity, UnitPrice)
+VALUES (1, 1, 1, 2, 19.99)
+ON CONFLICT (OrderLineID)
+DO UPDATE SET Quantity = 2;

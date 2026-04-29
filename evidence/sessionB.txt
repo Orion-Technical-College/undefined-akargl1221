@@ -1,1 +1,16 @@
 # Paste session B transcript
+
+BEGIN;
+
+-- Read same row
+SELECT * FROM ORDER_LINE WHERE OrderLineID = 1;
+
+-- This line should block since session A has not COMMIT yet
+UPDATE ORDER_LINE
+SET Quantity = Quantity - 1
+WHERE OrderLineID = 1;
+
+-- After Session A commits, update completes
+SELECT * FROM ORDER_LINE WHERE OrderLineID = 1;
+
+COMMIT;

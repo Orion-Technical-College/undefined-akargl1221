@@ -1,1 +1,17 @@
 # Paste session A transcript
+
+BEGIN;
+
+-- View initial data
+SELECT * FROM ORDER_LINE WHERE OrderLineID = 1;
+
+-- Modify quantity (but do not commit yet)
+UPDATE ORDER_LINE
+SET Quantity = Quantity + 5
+WHERE OrderLineID = 1;
+
+-- Verify change inside transaction
+SELECT * FROM ORDER_LINE WHERE OrderLineID = 1;
+
+-- Session B should be able to complete now
+COMMIT;
