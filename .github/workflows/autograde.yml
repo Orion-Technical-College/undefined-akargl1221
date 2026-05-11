@@ -25,7 +25,7 @@ jobs:
       - name: pytest
         env:
           PGHOST: localhost
-          PGPORT: "5432"
+          PGPORT: "5434"
           PGDATABASE: ia510
           PGUSER: ia510_user
           PGPASSWORD: ia510_pass

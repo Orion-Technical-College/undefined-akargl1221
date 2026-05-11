@@ -1,1 +1,30 @@
 # Paste session B transcript
+
+BEGIN;
+
+-- Read same row
+SELECT * FROM ORDER_LINE WHERE OrderLineID = 1;
+
+-- Output
+ orderlineid | orderid | productid | quantity | unitprice |          created_at           
+-------------+---------+-----------+----------+-----------+-------------------------------
+           1 |       1 |         1 |        2 |     19.99 | 2026-05-11 23:10:02.457766+00
+(1 row)
+
+-- This line should block since session A has not COMMIT yet
+UPDATE ORDER_LINE
+SET Quantity = Quantity - 1
+WHERE OrderLineID = 1;
+
+-- It did block, it kind of froze
+
+-- After Session A commits, update completes
+SELECT * FROM ORDER_LINE WHERE OrderLineID = 1;
+
+--Output after commit from sessionA
+ orderlineid | orderid | productid | quantity | unitprice |          created_at           
+-------------+---------+-----------+----------+-----------+-------------------------------
+           1 |       1 |         1 |        6 |     19.99 | 2026-05-11 23:27:51.725698+00
+(1 row)
+
+COMMIT;
