@@ -5,6 +5,12 @@ BEGIN;
 -- View initial data
 SELECT * FROM ORDER_LINE WHERE OrderLineID = 1;
 
+--Output
+ orderlineid | orderid | productid | quantity | unitprice |          created_at           
+-------------+---------+-----------+----------+-----------+-------------------------------
+           1 |       1 |         1 |        2 |     19.99 | 2026-05-11 23:10:02.457766+00
+(1 row)
+
 -- Modify quantity (but do not commit yet)
 UPDATE ORDER_LINE
 SET Quantity = Quantity + 5
@@ -12,6 +18,12 @@ WHERE OrderLineID = 1;
 
 -- Verify change inside transaction
 SELECT * FROM ORDER_LINE WHERE OrderLineID = 1;
+
+-- Output
+ orderlineid | orderid | productid | quantity | unitprice |          created_at           
+-------------+---------+-----------+----------+-----------+-------------------------------
+           1 |       1 |         1 |        7 |     19.99 | 2026-05-11 23:10:02.457766+00
+(1 row)
 
 -- Session B should be able to complete now
 COMMIT;

@@ -1,9 +1,9 @@
 -- Canonical seed (must stay aligned with MP7 autograde marker: Avery / avery.lopez@example.com).
 
-INSERT INTO CUSTOMER (CompanyName, Email)
+INSERT INTO CUSTOMER (CustomerID,CompanyName, Email)
 VALUES
-    ('Avery Lopez', 'avery.lopez@example.com'),
-    ('Morgan Chen', 'morgan.chen@example.com');
+    (1, 'Avery Lopez', 'avery.lopez@example.com'),
+    (2, 'Morgan Chen', 'morgan.chen@example.com');
 
 INSERT INTO SUPPLIER (SupplierID, SupplierName, Email)
 VALUES
